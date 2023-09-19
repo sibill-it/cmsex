@@ -1,0 +1,66 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  test:
+    env:
+      MIX_ENV: test
+    runs-on: ubuntu-20.04
+    name: Test (OTP ${{ matrix.otp }} / Elixir ${{ matrix.elixir }})
+    strategy:
+      matrix:
+        elixir: ['1.15', '1.14', '1.13', '1.12', '1.11']
+        otp: ['26', '25', '24', '23']
+        exclude:
+          - {otp: '23', elixir: '1.15'}
+          - {otp: '24', elixir: '1.15'}
+          - {otp: '25', elixir: '1.11'}
+          - {otp: '25', elixir: '1.12'}
+          - {otp: '26', elixir: '1.11'}
+          - {otp: '26', elixir: '1.12'}
+          - {otp: '26', elixir: '1.13'}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+      - run: mix deps.get
+      - run: mix compile.asn1
+      - run: mix test
+
+  lint:
+    runs-on: ubuntu-latest
+    name: Linting
+    strategy:
+      matrix:
+        elixir: ['1.15']
+        otp: ['26']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@v1
+        id: beam
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+      - name: PLT cache
+        uses: actions/cache@v3
+        with:
+          key: |
+            ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-plt
+          path: |
+            priv/plts
+      - run: mix deps.get
+      - run: mix deps.unlock --check-unused
+      - run: mix compile --warnings-as-errors
+      - run: mix format --check-formatted
+      - run: mix credo --strict --all
+      - run: mix dialyzer --halt-exit-status
