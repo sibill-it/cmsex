@@ -6,6 +6,9 @@ defmodule CMSEx.MixProject do
       app: :cmsex,
       version: "0.1.0",
       elixir: "~> 1.11",
+      description: "Cryptographic Message Syntax parser for Elixir",
+      source_url: "https://github.com/sibill-it/cmsex",
+      package: package(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: dialyzer(),
@@ -34,4 +37,12 @@ defmodule CMSEx.MixProject do
   defp asn1_options, do: [maps: true]
 
   defp dialyzer, do: [ignore_warnings: ".dialyzer.ignore"]
+
+  defp package do
+    [
+      maintainers: ["Sibill"],
+      licenses: ["MIT"],
+      links: %{GitHub: "https://github.com/sibill-it/cmsex"}
+    ]
+  end
 end
