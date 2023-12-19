@@ -12,6 +12,7 @@ defmodule CMSEx.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: dialyzer(),
+      docs: docs(),
       erlc_paths: ["src"],
       asn1_options: asn1_options()
     ]
@@ -24,6 +25,8 @@ defmodule CMSEx.MixProject do
     ]
   end
 
+  defp asn1_options, do: [maps: true]
+
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
@@ -34,7 +37,12 @@ defmodule CMSEx.MixProject do
     ]
   end
 
-  defp asn1_options, do: [maps: true]
+  defp docs do
+    [
+      main: "readme",
+      extras: ["README.md"]
+    ]
+  end
 
   defp dialyzer, do: [ignore_warnings: ".dialyzer.ignore"]
 

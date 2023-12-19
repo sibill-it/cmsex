@@ -17,6 +17,10 @@ def deps do
 end
 ```
 
+# Usage
+
+Refer to the `CMSEx` module documentation.
+
 # Development
 
 The parser is generated from `ASN.1` specifications copied from their RFCs  using the `asn1ct` module included with OTP. The ASN.1 specs were only slightly tweaked by removing primitive type definitions, to be compatible with `asn1ct`.
