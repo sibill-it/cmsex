@@ -11,7 +11,6 @@ defmodule CMSEx.MixProject do
       package: package(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      dialyzer: dialyzer(),
       docs: docs(),
       erlc_paths: ["src"],
       asn1_options: asn1_options()
@@ -43,8 +42,6 @@ defmodule CMSEx.MixProject do
       extras: ["README.md"]
     ]
   end
-
-  defp dialyzer, do: [ignore_warnings: ".dialyzer.ignore"]
 
   defp package do
     [
