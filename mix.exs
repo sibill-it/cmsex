@@ -5,7 +5,7 @@ defmodule CMSEx.MixProject do
     [
       app: :cmsex,
       version: "0.1.0",
-      elixir: "~> 1.11",
+      elixir: "~> 1.13",
       description: "Cryptographic Message Syntax parser for Elixir",
       source_url: "https://github.com/sibill-it/cmsex",
       package: package(),
