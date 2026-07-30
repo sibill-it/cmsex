@@ -31,7 +31,6 @@ defmodule CMSEx.MixProject do
     [
       {:asn1_compiler, "~> 0.1", runtime: false, only: [:dev]},
       {:credo, "~> 1.0", runtime: false, only: [:dev]},
-      {:dialyxir, "~> 1.0", runtime: false, only: [:dev]},
       {:ex_doc, "~> 0.30", runtime: false, only: [:dev]}
     ]
   end
