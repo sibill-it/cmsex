@@ -29,9 +29,9 @@ defmodule CMSEx.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:asn1_compiler, "~> 0.1", runtime: false, only: [:dev]},
+      {:asn1_compiler, "0.1.1", runtime: false, only: [:dev]},
       {:credo, "~> 1.0", runtime: false, only: [:dev]},
-      {:ex_doc, "~> 0.30", runtime: false, only: [:dev]}
+      {:ex_doc, "0.40.3", runtime: false, only: [:dev]}
     ]
   end
 
